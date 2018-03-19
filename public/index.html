@@ -1,0 +1,107 @@
+<!DOCTYPE doctype html>
+<html>
+    <head>
+        <title>
+            Socket.IO chat
+        </title>
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+        </link>
+        <link href="/css/main.css" rel="stylesheet" type="text/css">
+        </link>
+    </head>
+    <body>
+        <div id="app">
+            <textarea :disabled="isDisabled" v-model="inproxies">
+            </textarea>
+            <button :disabled="isDisabled" @click="onSubmit()">
+                отправить
+            </button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            #
+                        </th>
+                        <th scope="col">
+                            ip
+                        </th>
+                        <th scope="col">
+                            port
+                        </th>
+                        <th scope="col">
+                            protocol
+                        </th>
+                        <th scope="col">
+                            pickabu
+                        </th>
+                        <th scope="col">
+                            supportsHttps
+                        </th>
+                        <th scope="col">
+                            bad
+                        </th>
+                        <th scope="col">
+                            good
+                        </th>
+                        <th scope="col">
+                            anonymityLevel
+                        </th>
+                        <th scope="col">
+                            date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody is="transition-group" name="fade">
+                    <tr :key="proxy._id" v-for="(proxy,index) in proxies">
+                        <transition name="fade">
+                            <th scope="row">
+                                {{index}}
+                            </th>
+                            <td>
+                                {{proxy.ip}}
+                            </td>
+                            <td>
+                                {{proxy.port}}
+                            </td>
+                            <td>
+                                {{proxy.protocol}}
+                            </td>
+                            <td>
+                                {{proxy.pickabu}}
+                            </td>
+                            <td>
+                                {{proxy.supportsHttps}}
+                            </td>
+                            <td>
+                                {{proxy.bad.length}}
+                            </td>
+                            <td>
+                                {{proxy.good.length}}
+                            </td>
+                            <td>
+                                {{proxy.anonymityLevel}}
+                            </td>
+                            <td>
+                                {{dateFormat(proxy.date)}}
+                            </td>
+                        </transition>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js">
+        </script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js">
+        </script>
+        <script src="/js/socket.io.js">
+        </script>
+        <script src="/js/moment.js">
+        </script>
+        <script src="/js/vue.js">
+        </script>
+        <script src="/js/bootstrap.js">
+        </script>
+        <script src="/js/main.js">
+        </script>
+    </body>
+</html>
