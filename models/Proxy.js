@@ -3,7 +3,9 @@ var Schema = mongoose.Schema;
 var proxySchema = new Schema({
     ipport: {
         type: String,
-        unique: true
+        unique: true,
+        required: true,
+        index: false,
     },
     ip: String,
     port: Number,
@@ -14,20 +16,22 @@ var proxySchema = new Schema({
         type: Boolean,
         default: false,
     },
-    good: [{
-        date: Date
-    }],
-    bad: [{
-        date: Date
-    }],
+    good: {
+        type: Number,
+        default: 0
+    },
+    bad: {
+        type: Number,
+        default: 0
+    },
     anonymityLevel: Number,
-    date: Date,
+    isGoodInLastTest: Boolean,
+    dateAdd: {
+        type: Date,
+        default: Date.now
+    },
+    dateGood: Date,
+    dateTest: Date,
 });
-proxySchema.pre('save', function(next) {
-    if (!this.isNew) return next();
-    var ipport = this.ipport.split(":");
-    this.port = ipport[1];
-    this.ip = ipport[0];
-    return next();
-});
+proxySchema.index({ ipport: -1 });
 module.exports = mongoose.model('Proxy', proxySchema);
